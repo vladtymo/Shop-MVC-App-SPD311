@@ -1,0 +1,25 @@
+﻿<h1>About Page</h1>
+<div>
+    <p>Hello dear friends!</p>
+</div>
+
+@* Razor Syntax: @if @for @foreach @swithc @{ c# code } *@
+@if (DateTime.Now.Minute % 2 == 0)
+{
+    <p>Current minute is <span class="badge bg-success">even</span>!</p>
+}
+else
+{
+    <p>Current minute is <span class="badge bg-danger">odd</span>!</p>
+}
+
+@for (int i = 0; i < 10; i++)
+{
+    <div class="spinner-grow text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-warning" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+}
+
