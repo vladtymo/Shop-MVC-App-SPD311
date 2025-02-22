@@ -1,12 +1,29 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<Team>;
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>Here you can find suitable product for your needs...</p>
 </div>
 
-<div class="block">
-    <img class="text-center" src="https://media0.giphy.com/media/iLMOW1wJp8DuuMoMDY/200w.gif?cid=6c09b952gg1w9q8039w7w0vqhime2w49cwo5br22urivgshp&ep=v1_gifs_search&rid=200w.gif&ct=g" alt="">
+@* <div class="block"> *@
+@*     <img class="text-center" src="https://media0.giphy.com/media/iLMOW1wJp8DuuMoMDY/200w.gif?cid=6c09b952gg1w9q8039w7w0vqhime2w49cwo5br22urivgshp&ep=v1_gifs_search&rid=200w.gif&ct=g" alt=""> *@
+@* </div> *@
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+@foreach (var i in Model)
+{
+    <div class="col">
+        <div class="card" style="width: 18rem;">
+            <img src="@i.Logo" height="250" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@i.Name</h5>
+                <p class="card-text">
+                    <div>Players: @i.Players</div>
+                    <div>Country: @i.Country</div>
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+}
 </div>
