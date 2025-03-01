@@ -23,5 +23,15 @@ namespace MVC_App_SPD311.Controllers
             return View(players);
         }
 
+        public ActionResult Delete(int id)
+        {
+            var player = context.FootballPlayers.Find(id);   
+            if (player == null) return NotFound();
+            
+            context.FootballPlayers.Remove(player);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }
