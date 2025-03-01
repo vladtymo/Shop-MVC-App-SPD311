@@ -1,0 +1,35 @@
+@model List<Player>
+
+<h1>Players Admin Page</h1>
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Club</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Number</th>
+            <th scope="col">Birthdate</th>
+            <th scope="col">Goals</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var i in Model)
+    {
+        <tr class="align-middle">
+            <th scope="row" style="width: 1%">@i.Id</th>
+            <td class="text-center" style="width: 1%">
+                <img height="40" src="@i.Team?.Logo" alt="@i.Team?.Name" />
+            </td>
+            <td>@i.FirstName</td>
+            <td>@i.LastName</td>
+            <td>
+                <span class="badge bg-primary">@i.Number</span>
+            </td>
+            <td>@i.Birthdate.ToShortDateString()</td>
+            <td>@i.Goals</td>
+        </tr>
+    }
+    </tbody>
+</table>

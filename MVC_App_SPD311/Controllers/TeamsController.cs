@@ -27,7 +27,7 @@ namespace MVC_App_SPD311.Controllers
 
             var team = await _context.FootballTeams.FindAsync(id);
             
-            if (team == null) return NotFound();
+            if (team == null) return NotFound(); // 404
             
             return View(team);
         }
