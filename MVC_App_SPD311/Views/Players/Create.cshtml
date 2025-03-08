@@ -1,0 +1,38 @@
+@model Player
+
+<h1>Create New Player</h1>
+
+<form class="row g-3" asp-action="Create" method="post">
+    <div class="col-md-6">
+        <label class="form-label">First Name</label>
+        <input asp-for="FirstName" type="text" class="form-control" placeholder="Enter first name">
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Last Name</label>
+        <input asp-for="LastName" type="text" class="form-control" placeholder="Enter last name">
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Number</label>
+        <input asp-for="Number" type="number" class="form-control" placeholder="Enter player number">
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Birthdate</label>
+        <input asp-for="Birthdate" type="date" class="form-control" placeholder="Enter birthdate">
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Goals</label>
+        <input asp-for="Goals" type="number" class="form-control" placeholder="Enter goals">
+    </div>
+    <div class="col-md-12">
+        <label class="form-label">Club ID</label>
+        <input asp-for="TeamId" type="number" class="form-control" placeholder="Enter club id">
+    </div>
+    
+    <div class="col-md-6">
+        <button type="submit" class="btn btn-primary w-100">Create</button>
+    </div>
+    <div class="col-md-6">
+        <a asp-action="Index" class="btn btn-dark w-100">Back</a>
+    </div>
+</form>
+

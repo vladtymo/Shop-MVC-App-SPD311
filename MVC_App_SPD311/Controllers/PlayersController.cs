@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVC_App_SPD311.Data;
+using MVC_App_SPD311.Models;
 
 namespace MVC_App_SPD311.Controllers
 {
@@ -23,6 +24,24 @@ namespace MVC_App_SPD311.Controllers
             return View(players); 
         }
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public ActionResult Create(Player player)
+        {
+            if (!ModelState.IsValid)
+                return View();
+            
+            context.FootballPlayers.Add(player);
+            context.SaveChanges();
+            
+            return RedirectToAction("Index");
+        }
+        
         public ActionResult Delete(int id)
         {
             var player = context.FootballPlayers.Find(id);   
