@@ -20,7 +20,7 @@ namespace MVC_App_SPD311.Controllers
                 .Include(x => x.Team)
                 .ToList();
             
-            return View(players);
+            return View(players); 
         }
 
         public ActionResult Delete(int id)
@@ -32,6 +32,17 @@ namespace MVC_App_SPD311.Controllers
             context.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+        
+        public ActionResult Details(int id)
+        {
+            var player = context.FootballPlayers
+                .Include(x => x.Team)
+                .FirstOrDefault(x => x.Id == id);   
+            
+            if (player == null) return NotFound();
+
+            return View(player);
         }
     }
 }
