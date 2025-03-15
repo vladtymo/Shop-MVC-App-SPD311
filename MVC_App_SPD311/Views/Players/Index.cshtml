@@ -39,9 +39,9 @@
                     <a asp-action="Details" asp-route-id="@i.Id" class="btn btn-outline-secondary">
                         <i class="bi bi-info-square-fill"></i>
                     </a>
-                    <button type="button" class="btn btn-outline-secondary">
+                    <a asp-action="Edit" asp-route-id="@i.Id" class="btn btn-outline-secondary">
                         <i class="bi bi-pencil-square"></i>
-                    </button>
+                    </a>
                     @* asp-action="Delete" asp-route-id="@i.Id" *@
                     <a  
                         class="btn btn-outline-danger" 

@@ -47,6 +47,31 @@ namespace MVC_App_SPD311.Controllers
             return RedirectToAction("Index");
         }
         
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var player = context.FootballPlayers.Find(id);   
+            if (player == null) return NotFound();
+            
+            LoadTeams();
+            return View(player);
+        }
+        
+        [HttpPost]
+        public ActionResult Edit(Player player)
+        {
+            if (!ModelState.IsValid)
+            {
+                LoadTeams();
+                return View();
+            }
+            
+            context.FootballPlayers.Update(player);
+            context.SaveChanges();
+            
+            return RedirectToAction("Index");
+        }
+        
         public ActionResult Delete(int id)
         {
             var player = context.FootballPlayers.Find(id);   
