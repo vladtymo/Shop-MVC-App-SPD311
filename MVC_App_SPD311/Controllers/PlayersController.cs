@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVC_App_SPD311.Data;
 using MVC_App_SPD311.Models;
@@ -27,6 +28,7 @@ namespace MVC_App_SPD311.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            LoadTeams();
             return View();
         }
         
@@ -34,7 +36,10 @@ namespace MVC_App_SPD311.Controllers
         public ActionResult Create(Player player)
         {
             if (!ModelState.IsValid)
+            {
+                LoadTeams();
                 return View();
+            }
             
             context.FootballPlayers.Add(player);
             context.SaveChanges();
@@ -62,6 +67,12 @@ namespace MVC_App_SPD311.Controllers
             if (player == null) return NotFound();
 
             return View(player);
+        }
+
+        private void LoadTeams()
+        {
+            var teams = new SelectList(context.FootballTeams.ToList(), "Id", "Name");
+            ViewBag.Teams = teams;
         }
     }
 }

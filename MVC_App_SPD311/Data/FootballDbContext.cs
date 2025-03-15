@@ -8,7 +8,10 @@ public class FootballDbContext : DbContext
     public DbSet<Team> FootballTeams { get; set; }
     public DbSet<Player> FootballPlayers { get; set; }
 
-    public FootballDbContext() {  }
+    public FootballDbContext()
+    {
+        //this.Database.EnsureCreated();
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

@@ -6,26 +6,38 @@
     <div class="col-md-6">
         <label class="form-label">First Name</label>
         <input asp-for="FirstName" type="text" class="form-control" placeholder="Enter first name">
+        <span asp-validation-for="FirstName" class="form-text text-danger"></span>
     </div>
     <div class="col-md-6">
         <label class="form-label">Last Name</label>
         <input asp-for="LastName" type="text" class="form-control" placeholder="Enter last name">
+        <span asp-validation-for="LastName" class="form-text text-danger"></span>
     </div>
     <div class="col-md-3">
         <label class="form-label">Number</label>
         <input asp-for="Number" type="number" class="form-control" placeholder="Enter player number">
+        <span asp-validation-for="Number" class="form-text text-danger"></span>
     </div>
     <div class="col-md-6">
         <label class="form-label">Birthdate</label>
         <input asp-for="Birthdate" type="date" class="form-control" placeholder="Enter birthdate">
+        <span asp-validation-for="Birthdate" class="form-text text-danger"></span>
     </div>
     <div class="col-md-3">
         <label class="form-label">Goals</label>
         <input asp-for="Goals" type="number" class="form-control" placeholder="Enter goals">
+        <span asp-validation-for="Goals" class="form-text text-danger"></span>
     </div>
+    @* <div class="col-md-12"> *@
+    @*     <label class="form-label">Club ID</label> *@
+    @*     <input asp-for="TeamId" type="number" class="form-control" placeholder="Enter club id"> *@
+    @* </div> *@
     <div class="col-md-12">
-        <label class="form-label">Club ID</label>
-        <input asp-for="TeamId" type="number" class="form-control" placeholder="Enter club id">
+        <label class="form-label">Club</label>
+        <select asp-for="TeamId" asp-items="@ViewBag.Teams" class="form-select">
+            <option selected disabled value="0">Choose club...</option>
+        </select>
+        <span asp-validation-for="TeamId" class="form-text text-danger"></span>
     </div>
     
     <div class="col-md-6">
@@ -36,3 +48,7 @@
     </div>
 </form>
 
+@section Scripts
+{
+   <partial name="_ValidationScriptsPartial"/>
+}
