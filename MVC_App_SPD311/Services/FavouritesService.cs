@@ -29,6 +29,9 @@ public class FavouritesService
     public void Add(int id)
     {
         var ids = GetIds();
+
+        if (ids.Contains(id)) return;
+        
         ids.Add(id);
         _session.Set(key, ids);
     }
@@ -43,5 +46,10 @@ public class FavouritesService
     public void Clear()
     {
         _session.Remove(key);
+    }
+    
+    public int GetCount()
+    {
+        return GetIds().Count;
     }
 }

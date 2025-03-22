@@ -21,14 +21,15 @@ namespace MVC_App_SPD311.Controllers
         }
 
         // GET: Teams/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string? returnUrl = null)
         {
             if (id == null) return NotFound();
 
             var team = await _context.FootballTeams.FindAsync(id);
             
             if (team == null) return NotFound(); // 404
-            
+
+            ViewBag.ReturnUrl = returnUrl;
             return View(team);
         }
 
