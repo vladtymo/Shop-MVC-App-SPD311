@@ -10,10 +10,10 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly FootballDbContext context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, FootballDbContext context)
     {
         _logger = logger;
-        context = new FootballDbContext();
+        this.context = context;
     }
 
     // GET: ~/home/index

@@ -9,5 +9,6 @@
             <div>Country: @Model.Country</div>
         </p>
         <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a asp-controller="Favourites" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-success">+</a>
     </div>
 </div>

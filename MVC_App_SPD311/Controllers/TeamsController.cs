@@ -9,9 +9,9 @@ namespace MVC_App_SPD311.Controllers
     {
         private readonly FootballDbContext _context;
 
-        public TeamsController()
+        public TeamsController(FootballDbContext context)
         {
-            _context = new FootballDbContext();
+            _context = context;
         }
 
         // GET: Teams
