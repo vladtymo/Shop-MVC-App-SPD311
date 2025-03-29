@@ -1,12 +1,20 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MVC_App_SPD311;
 using MVC_App_SPD311.Data;
+using MVC_App_SPD311.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 string connStr = builder.Configuration.GetConnectionString("SomeeDb");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddIdentity<User, IdentityRole>(options => 
+        options.SignIn.RequireConfirmedAccount = false)
+    .AddDefaultTokenProviders()
+    .AddDefaultUI()
+    .AddEntityFrameworkStores<FootballDbContext>();
 
 builder.Services.AddDbContext<FootballDbContext>(opts => 
     opts.UseSqlServer(connStr));
@@ -22,6 +30,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -41,6 +50,7 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseSession();
 
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -1,13 +1,17 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+//using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 using MVC_App_SPD311.Models;
 
 namespace MVC_App_SPD311.Data;
 
-public class FootballDbContext : DbContext
+public class FootballDbContext : IdentityDbContext<User>
 {
     public DbSet<Team> FootballTeams { get; set; }
     public DbSet<Player> FootballPlayers { get; set; }
 
+    public FootballDbContext() { }
     public FootballDbContext(DbContextOptions<FootballDbContext> options) : base(options)
     {
         //this.Database.EnsureCreated();
@@ -25,6 +29,15 @@ public class FootballDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<IdentityUserLogin<string>>()
+            .HasKey(x => new { x.LoginProvider, x.ProviderKey });
+        
+        modelBuilder.Entity<IdentityUserRole<string>>()
+            .HasKey(x => new { x.UserId, x.RoleId });
+        
+        modelBuilder.Entity<IdentityUserToken<string>>()
+            .HasKey(x => new { x.UserId, x.LoginProvider, x.Name });
+        
         modelBuilder.Entity<Team>().HasData(
             new Team { Id = 1, Logo = "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg", Name = "FC Barcelona", Country = "Spain" },
             new Team { Id = 2, Logo = "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg", Name = "Real Madrid", Country = "Spain" },

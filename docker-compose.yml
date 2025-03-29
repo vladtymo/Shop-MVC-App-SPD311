@@ -1,0 +1,23 @@
+﻿services:
+  mssql:
+    container_name: sql-server
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: always
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=y
+      - SA_PASSWORD=A&VeryComplex123Password
+  
+  mvc_app_spd311:
+    image: mvc_app_spd311
+    build:
+      context: .
+      dockerfile: MVC_App_SPD311/Dockerfile
+    ports:
+      - 8001:8080
+    depends_on:
+      - mssql
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
