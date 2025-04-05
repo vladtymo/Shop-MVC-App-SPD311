@@ -1,11 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVC_App_SPD311.Data;
+using MVC_App_SPD311.Extensions;
 using MVC_App_SPD311.Models;
 
 namespace MVC_App_SPD311.Controllers
 {
+    [Authorize(Roles = Roles.ADMIN)]
     public class PlayersController : Controller
     {
         private readonly FootballDbContext context;
@@ -15,6 +18,7 @@ namespace MVC_App_SPD311.Controllers
             this.context = context;
         }
         
+        [AllowAnonymous]
         // GET: PlayersController
         public ActionResult Index()
         {
