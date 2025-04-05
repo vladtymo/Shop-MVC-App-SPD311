@@ -10,11 +10,12 @@ public class FootballDbContext : IdentityDbContext<User>
 {
     public DbSet<Team> FootballTeams { get; set; }
     public DbSet<Player> FootballPlayers { get; set; }
+    public DbSet<FavoriteItem> FavoriteItems { get; set; }
 
     public FootballDbContext() { }
     public FootballDbContext(DbContextOptions<FootballDbContext> options) : base(options)
     {
-        //this.Database.EnsureCreated();
+        //this.Database.EnsureDeleted();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -37,6 +38,9 @@ public class FootballDbContext : IdentityDbContext<User>
         
         modelBuilder.Entity<IdentityUserToken<string>>()
             .HasKey(x => new { x.UserId, x.LoginProvider, x.Name });
+        
+        modelBuilder.Entity<FavoriteItem>()
+            .HasKey(x => new { x.UserId, x.TeamId });
         
         modelBuilder.Entity<Team>().HasData(
             new Team { Id = 1, Logo = "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg", Name = "FC Barcelona", Country = "Spain" },

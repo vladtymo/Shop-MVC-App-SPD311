@@ -22,6 +22,26 @@ namespace MVC_App_SPD311.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("MVC_App_SPD311.Models.FavoriteItem", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "TeamId");
+
+                    b.HasIndex("TeamId");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("FavoriteItems");
+                });
+
             modelBuilder.Entity("MVC_App_SPD311.Models.Player", b =>
                 {
                     b.Property<int>("Id")
@@ -570,6 +590,9 @@ namespace MVC_App_SPD311.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -577,6 +600,8 @@ namespace MVC_App_SPD311.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("Users");
                 });
@@ -695,6 +720,29 @@ namespace MVC_App_SPD311.Migrations
                     b.ToTable("UserTokens");
                 });
 
+            modelBuilder.Entity("MVC_App_SPD311.Models.FavoriteItem", b =>
+                {
+                    b.HasOne("MVC_App_SPD311.Models.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MVC_App_SPD311.Models.User", null)
+                        .WithMany("FavoriteItems")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MVC_App_SPD311.Models.Team", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
+                    b.Navigation("Team");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MVC_App_SPD311.Models.Player", b =>
                 {
                     b.HasOne("MVC_App_SPD311.Models.Team", "Team")
@@ -706,9 +754,23 @@ namespace MVC_App_SPD311.Migrations
                     b.Navigation("Team");
                 });
 
+            modelBuilder.Entity("MVC_App_SPD311.Models.User", b =>
+                {
+                    b.HasOne("MVC_App_SPD311.Models.Team", null)
+                        .WithMany("InFavoriteUsers")
+                        .HasForeignKey("TeamId");
+                });
+
             modelBuilder.Entity("MVC_App_SPD311.Models.Team", b =>
                 {
+                    b.Navigation("InFavoriteUsers");
+
                     b.Navigation("Players");
+                });
+
+            modelBuilder.Entity("MVC_App_SPD311.Models.User", b =>
+                {
+                    b.Navigation("FavoriteItems");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
+using MVC_App_SPD311.Interfaces;
 
 namespace MVC_App_SPD311.Controllers
 {
     public class FavouritesController : Controller
     {
-        private readonly FavouritesService favService;
+        private readonly IFavoriteService favService;
 
-        public FavouritesController(FavouritesService favService)
+        public FavouritesController(IFavoriteService favService)
         {
             this.favService = favService;
         }

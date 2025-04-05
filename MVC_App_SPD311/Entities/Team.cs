@@ -8,4 +8,5 @@ public class Team
     public string Country { get; set; }
 
     public ICollection<Player> Players { get; set; }
+    public ICollection<User> InFavoriteUsers { get; set; }
 }

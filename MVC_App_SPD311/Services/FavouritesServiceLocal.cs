@@ -1,16 +1,17 @@
 using MVC_App_SPD311.Data;
 using MVC_App_SPD311.Extensions;
+using MVC_App_SPD311.Interfaces;
 using MVC_App_SPD311.Models;
 
 namespace MVC_App_SPD311;
 
-public class FavouritesService
+public class FavouritesServiceLocal : IFavoriteService
 {
     private readonly ISession _session;
     private readonly FootballDbContext _context;
     private const string key = "favourite_list";
     
-    public FavouritesService(IHttpContextAccessor accessor, FootballDbContext context)
+    public FavouritesServiceLocal(IHttpContextAccessor accessor, FootballDbContext context)
     {
         this._session = accessor.HttpContext.Session;
         _context = context;

@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MVC_App_SPD311;
 using MVC_App_SPD311.Data;
+using MVC_App_SPD311.Extensions;
+using MVC_App_SPD311.Interfaces;
 using MVC_App_SPD311.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,9 +21,24 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 builder.Services.AddDbContext<FootballDbContext>(opts => 
     opts.UseSqlServer(connStr));
 
-builder.Services.AddScoped<FavouritesService>();
-builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<FavouritesServiceLocal>();
+builder.Services.AddScoped<FavouritesServiceDb>();
 
+builder.Services.AddScoped<IFavoriteService>(provider =>
+{
+    var httpContextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
+    var user = httpContextAccessor.HttpContext?.User;
+
+    var isAuthenticated = user?.Identity?.IsAuthenticated ?? false;
+
+    if (isAuthenticated)
+        return provider.GetRequiredService<FavouritesServiceDb>();
+    else
+        return provider.GetRequiredService<FavouritesServiceLocal>();
+});
+
+
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
@@ -33,6 +50,12 @@ builder.Services.AddSession(options =>
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.SeedRoles().Wait();
+    scope.ServiceProvider.SeedAdmin().Wait();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
