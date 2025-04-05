@@ -7,6 +7,6 @@ public class Team
     public string Name { get; set; }
     public string Country { get; set; }
 
-    public ICollection<Player> Players { get; set; }
-    public ICollection<User> InFavoriteUsers { get; set; }
+    public ICollection<Player>? Players { get; set; }
+    public ICollection<User>? InFavoriteUsers { get; set; }
 }
