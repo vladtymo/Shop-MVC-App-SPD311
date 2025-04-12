@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using MVC_App_SPD311;
 using MVC_App_SPD311.Data;
@@ -23,6 +24,7 @@ builder.Services.AddDbContext<FootballDbContext>(opts =>
 
 builder.Services.AddScoped<FavouritesServiceLocal>();
 builder.Services.AddScoped<FavouritesServiceDb>();
+builder.Services.AddScoped<IEmailSender, EmailService>();
 
 builder.Services.AddScoped<IFavoriteService>(provider =>
 {

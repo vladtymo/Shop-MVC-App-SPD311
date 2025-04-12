@@ -5,9 +5,11 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <UserSecretsId>0fc31b11-d5fe-449c-a715-e97763cc9954</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Mailjet.Api" Version="3.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.13" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.14" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.13" />

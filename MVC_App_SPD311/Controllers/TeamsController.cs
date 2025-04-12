@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVC_App_SPD311.Data;
@@ -11,10 +12,12 @@ namespace MVC_App_SPD311.Controllers
     public class TeamsController : Controller
     {
         private readonly FootballDbContext _context;
+        private readonly IEmailSender _emailSender;
 
-        public TeamsController(FootballDbContext context)
+        public TeamsController(FootballDbContext context, IEmailSender emailSender)
         {
             _context = context;
+            _emailSender = emailSender;
         }
 
         // GET: Teams
@@ -92,6 +95,9 @@ namespace MVC_App_SPD311.Controllers
             var team = await _context.FootballTeams.FindAsync(id);
             
             if (team == null) return NotFound();
+            
+            await _emailSender.SendEmailAsync("tymo.vlad@gmail.com", "Deleting team", 
+                "<h1>Team on deleting...</h1><p>" + team.Name + "</p>");
 
             return View(team);
         }
