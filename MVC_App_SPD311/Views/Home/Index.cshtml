@@ -1,5 +1,14 @@
 ﻿@model IEnumerable<Team>;
 
+
+<form class="d-flex g-3" method="get" asp-action="Index">
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Name</span>
+        <input type="text" class="form-control" name="name" placeholder="Team name">
+    </div>
+    <button type="submit" class="btn btn-outline-success mb-3">Search</button>
+</form>
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Here you can find suitable product for your needs...</p>

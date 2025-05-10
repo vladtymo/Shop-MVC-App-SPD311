@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MVC_App_SPD311.Data;
 using MVC_App_SPD311.Models;
 
@@ -17,10 +18,14 @@ public class HomeController : Controller
     }
 
     // GET: ~/home/index
-    public IActionResult Index()
+    public async Task<IActionResult> Index([FromQuery] string? name)
     {
-        // load data from db
-        return View(context.FootballTeams.ToList()); // return View: ~/Home/Index.cshtml
+        IQueryable<Team> items = context.FootballTeams;
+            
+        if (name != null)
+            items = items.Where(x => x.Name.Contains(name));
+            
+        return View(await items.ToListAsync());
     }
 
     public IActionResult Privacy()
